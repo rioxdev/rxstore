@@ -6,3 +6,10 @@ api/.vs/
 .vs
 .vs/
 /.vs
+.vs
+**/obj
+**/bin
+**/obj
+**/bin
+**/.vs
+

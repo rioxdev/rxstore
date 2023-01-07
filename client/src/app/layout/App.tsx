@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Catalog from "../../features/catalogs/catalog";
 import { Product } from "../models/product";
 
 
@@ -34,18 +35,8 @@ function App() {
       <h1 style={{ color: 'red' }}>RxStore</h1>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget facilisis libero, ac maximus nisl</p>
 
-      <p>
-        <button onClick={addProduct}>Add</button>
-      </p>
 
-      <ul>
-        {products.map((item) => (
-          <li key={item.id}>
-            {` ${item.name}  $${item.price}`}
-          </li>
-        ))}
-      </ul>
-
+      <Catalog products={products} addProduct={addProduct} />
     </div>
   );
 }
