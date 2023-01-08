@@ -1,3 +1,4 @@
+import { Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import Catalog from "../../features/catalogs/catalog";
 import { Product } from "../models/product";
@@ -24,15 +25,13 @@ function App() {
       price: 250,
       description: 'Pellentesque cursus et purus in laoreet. Nunc bibendum posuere diam. ',
       brand: 'some brand',
-      pictureUrl: 'http://localhost:3000/src/xxx'
+      pictureUrl: 'https://picsum.photos/150'
     }]);
   }
 
-
-
   return (
     <div>
-      <h1 style={{ color: 'red' }}>RxStore</h1>
+      <Typography variant="h3" style={{ color: 'blue' }}>RxStore</Typography>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget facilisis libero, ac maximus nisl</p>
 
 
