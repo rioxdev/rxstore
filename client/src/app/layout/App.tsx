@@ -1,7 +1,9 @@
-import { Typography } from "@mui/material";
+import { CssBaseline, Typography } from "@mui/material";
+import { Container } from "@mui/system";
 import { useEffect, useState } from "react";
 import Catalog from "../../features/catalogs/catalog";
 import { Product } from "../models/product";
+import Header from "./Header";
 
 
 function App() {
@@ -30,13 +32,16 @@ function App() {
   }
 
   return (
-    <div>
-      <Typography variant="h3" style={{ color: 'blue' }}>RxStore</Typography>
+    <>
+      <CssBaseline />
+      <Header />
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget facilisis libero, ac maximus nisl</p>
 
+      <Container>
+        <Catalog products={products} addProduct={addProduct} />
+      </Container>
 
-      <Catalog products={products} addProduct={addProduct} />
-    </div>
+    </>
   );
 }
 
