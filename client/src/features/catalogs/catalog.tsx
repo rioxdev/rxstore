@@ -1,11 +1,6 @@
-import Avatar from "@mui/material/Avatar"
 import Button from "@mui/material/Button"
-import List from "@mui/material/List"
-import ListItem from "@mui/material/ListItem"
-import ListItemAvatar from "@mui/material/ListItemAvatar"
-import ListItemButton from "@mui/material/ListItemButton"
-import ListItemText from "@mui/material/ListItemText"
 import { Product } from "../../app/models/product"
+import ProductList from "./ProductList"
 
 interface Prop {
     products: Product[],
@@ -22,20 +17,8 @@ export default function Catalog(props: Prop) {
             <p>
                 <Button variant="contained" onClick={props.addProduct}>Add</Button>
             </p>
-            <nav aria-label="secondary mailbox folders">
-                <List>
-                    {props.products.map((item) => (
-                        <ListItem key={item.id} >
-                            <ListItemAvatar>
-                                <Avatar src={item.pictureUrl} />
-                            </ListItemAvatar>
-                            <ListItemButton>
-                                <ListItemText primary={item.name} />
-                            </ListItemButton>
-                        </ListItem>
-                    ))}
-                </List>
-            </nav>
+
+            <ProductList products={props.products} />
         </>
     )
 }
