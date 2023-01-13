@@ -27,6 +27,7 @@ function App() {
       price: 250,
       description: 'Pellentesque cursus et purus in laoreet. Nunc bibendum posuere diam. ',
       brand: 'some brand',
+      type: 'Hats',
       pictureUrl: 'https://picsum.photos/150'
     }]);
   }
@@ -35,7 +36,7 @@ function App() {
     <>
       <CssBaseline />
       <Header />
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget facilisis libero, ac maximus nisl</p>
+      
 
       <Container>
         <Catalog products={products} addProduct={addProduct} />
