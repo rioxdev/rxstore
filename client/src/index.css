@@ -1,1 +1,17 @@
 
+.middleLinks a{
+    color: white;
+}
+
+.middleLinks a.active{
+    color: red;
+}
+
+.userLinks a
+{
+    color:white;
+}
+
+.userLinks a.active{
+    color: red;
+}
