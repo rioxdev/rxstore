@@ -7,6 +7,7 @@ import Catalog from "../../features/catalogs/catalog";
 import ProductDetails from "../../features/catalogs/ProductDetails";
 import ContactPage from "../../features/contact/ContactPage";
 import HomePage from "../../features/home/HomePage";
+import agent from "../api/agent";
 import { Product } from "../models/product";
 import Header from "./Header";
 
@@ -19,8 +20,7 @@ function App() {
   );
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/products')
-      .then(response => response.json())
+    agent.Catalog.list()
       .then(data => setProducts(data))
   }, [])
 

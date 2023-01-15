@@ -1,18 +1,36 @@
-import { Typography } from "@mui/material";
+import { Button, ButtonGroup, Typography } from "@mui/material";
+import agent from "../../app/api/agent";
 
 export default function AboutPage() {
 
     return (
         <>
-            <Typography variant="h3">
-                About page
+            <Typography gutterBottom variant="h3">
+                Testing Errors
             </Typography>
 
-            <p>
-                Aliquam varius, lorem quis volutpat rutrum, justo risus mollis lectus,
-                non congue leo nisl vel quam. Mauris gravida, diam eu sodales porta, dui turpis cursus turpis, non posuere nisl leo at erat. Suspendisse vitae ante pretium, molestie lectus at, eleifend est. Curabitur id massa eu lorem rutrum mollis. Quisque commodo nibh nibh, sagittis tincidunt tortor consequat a. Interdum et malesuada fames ac ante ipsum primis in faucibus.
-                Quisque varius turpis nec ultrices consectetur.
-            </p>
+            <ButtonGroup fullWidth>
+                <Button variant="contained"
+                    onClick={() => agent.TestErrors.get400()}>
+                    Test 400
+                </Button>
+                <Button variant="contained"
+                    onClick={() => agent.TestErrors.get401()}>
+                    Test 401
+                </Button>
+                <Button variant="contained"
+                    onClick={() => agent.TestErrors.get404()}>
+                    Test 404
+                </Button>
+                <Button variant="contained"
+                    onClick={() => agent.TestErrors.get500()}>
+                    Test 500
+                </Button>
+                <Button variant="contained"
+                    onClick={() => agent.TestErrors.getValidationError()}>
+                    Test validation
+                </Button>
+            </ButtonGroup>
 
         </>
 

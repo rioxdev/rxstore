@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 const middleLinks = [
     { title: 'Catalog', path: '/catalog' },
     { title: 'Contact', path: '/contact' },
-    { title: 'About', path: '/about' }
+    { title: 'Error testing', path: '/about' }
 ];
 
 const userLinks = [

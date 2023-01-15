@@ -1,4 +1,5 @@
 using API.Data;
+using API.Middleware;
 using Microsoft.EntityFrameworkCore;
 
 namespace API
@@ -19,7 +20,7 @@ namespace API
 
             builder.Services.AddDbContext<StoreContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("Default")));
 
-          //  builder.Services.AddCors(opt => opt.AddPolicy("app", policy => { policy.WithOrigins("http://localhost:3000"); }));
+            //  builder.Services.AddCors(opt => opt.AddPolicy("app", policy => { policy.WithOrigins("http://localhost:3000"); }));
 
             var app = builder.Build();
 
@@ -36,6 +37,8 @@ namespace API
             {
                 logger.LogError(ex, "Problem migrating data.");
             }
+
+            app.UseMiddleware<ExceptionMiddleware>();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
