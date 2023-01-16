@@ -1,8 +1,10 @@
-import { AppBar, Badge, IconButton, List, ListItem, ListItemButton, Menu, MenuItem, Toolbar, Typography } from "@mui/material";
+import { AppBar, Badge, IconButton, List, ListItem,  Toolbar, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { NavLink } from "react-router-dom";
 
 import { Link } from "react-router-dom";
+
+import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 
 
 const middleLinks = [
@@ -22,9 +24,9 @@ export default function Header() {
         <AppBar position="static" sx={{ mb: 4 }}>
             <Toolbar sx={
                 {
-                    display:'flex',
-                    justifyContent:'space-between',
-                    alignItems:'center'
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center'
                 }
             }>
                 <Box>
@@ -39,7 +41,7 @@ export default function Header() {
                     <List className="middleLinks" sx={{ display: 'flex' }}>
                         {
                             middleLinks.map(({ title, path }) => (
-                                <ListItem key={path}>
+                                <ListItem  key={path}>
                                     <NavLink to={path} style={{
                                         fontSize: '1.20rem', fontFamily: '"Roboto","Helvetica","Arial","sans-serif"', textDecoration: 'none'
                                     }}>{title.toUpperCase()}</NavLink>
@@ -50,11 +52,10 @@ export default function Header() {
                 </Box>
 
                 <Box display='flex' alignItems='center'>
-                    <IconButton>
-                        <Badge badgeContent="5" sx={{color:'red'}}>
-                            <span style={{color:'lightgray'}}>Panier</span>
+                    <IconButton size="large">
+                        <Badge badgeContent="5" sx={{ color: 'red' }}>
+                            <ShoppingCartCheckoutIcon sx={{color:'white'}}/>
                         </Badge>
-                            
                     </IconButton>
 
                     <List className="userLinks" sx={{ display: 'flex' }}>
