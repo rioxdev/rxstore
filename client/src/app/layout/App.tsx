@@ -12,6 +12,7 @@ import HomePage from "../../features/home/HomePage";
 import { Product } from "../models/product";
 import Header from "./Header";
 import 'react-toastify/dist/ReactToastify.css';
+import BasketPage from "../../features/basket/BasketPage";
 
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
           <Route path="/catalog/:id" element={<ProductDetails />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="/basket" element={<BasketPage />} />
         </Routes>
 
 

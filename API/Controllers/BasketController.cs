@@ -55,6 +55,8 @@ namespace API.Controllers
             Product product = await _storeContext.Products.FindAsync(productId);
             if (product == null) return NotFound();
 
+            await Task.Delay(1000);
+
             basket.AddItem(product, quantity);
 
             var result = await _storeContext.SaveChangesAsync() > 0;

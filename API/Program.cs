@@ -48,7 +48,7 @@ namespace API
             }
 
             //app.UseCors(opt => opt.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
-            app.UseCors(opt => opt.AllowAnyHeader().AllowCredentials().AllowAnyOrigin());
+            app.UseCors(opt => opt.AllowAnyHeader().AllowCredentials().WithOrigins("http://localhost:3000"));
 
             //app.UseHttpsRedirection();
 
