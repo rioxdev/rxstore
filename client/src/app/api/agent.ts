@@ -21,7 +21,7 @@ axios.interceptors.response.use((response: AxiosResponse) => {
                 const validationErrors: string[] = [];
                 for (const key in data.errors)
                     validationErrors.push(data.errors[key]);
-                
+
                 throw validationErrors.flat();
             }
             toast.error(data.title);
@@ -30,7 +30,7 @@ axios.interceptors.response.use((response: AxiosResponse) => {
             toast.error(data.title);
             break;
         case 500:
-          
+
             toast.error(data.title);
             break;
 
@@ -59,6 +59,12 @@ const TestErrors = {
     get404: () => requests.get('buggy/not-found'),
     get500: () => requests.get('buggy/server-error'),
     getValidationError: () => requests.get('buggy/validation-error')
+}
+
+const Basket = {
+    get: () => requests.get('basket'),
+    addItem: (productId: number, quantity: number = 1) => requests.post(`basket?productId=${productId}&quantity=${quantity}`, {}),
+    removeItem: (productId: number, quantity: number = 1) => requests.delete(`basket?productId=${productId}&quantity=${quantity}`)
 }
 
 const agent = {
