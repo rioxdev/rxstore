@@ -11,23 +11,23 @@ export default function AboutPage() {
 
             <ButtonGroup fullWidth>
                 <Button variant="contained"
-                    onClick={() => agent.TestErrors.get400()}>
+                    onClick={() => agent.TestErrors.get400().catch(err => console.log(err))}>
                     Test 400
                 </Button>
                 <Button variant="contained"
-                    onClick={() => agent.TestErrors.get401()}>
+                    onClick={() => agent.TestErrors.get401().catch(err => console.log(err))}>
                     Test 401
                 </Button>
                 <Button variant="contained"
-                    onClick={() => agent.TestErrors.get404()}>
+                    onClick={() => agent.TestErrors.get404().catch(err => console.log(err))}>
                     Test 404
                 </Button>
                 <Button variant="contained"
-                    onClick={() => agent.TestErrors.get500()}>
+                    onClick={() => agent.TestErrors.get500().catch(err => console.log(err))}>
                     Test 500
                 </Button>
                 <Button variant="contained"
-                    onClick={() => agent.TestErrors.getValidationError()}>
+                    onClick={() => agent.TestErrors.getValidationError().catch(err => console.log(err))}>
                     Test validation
                 </Button>
             </ButtonGroup>

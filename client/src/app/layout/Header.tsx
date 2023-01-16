@@ -1,4 +1,4 @@
-import { AppBar, Badge, IconButton, List, ListItem,  Toolbar, Typography } from "@mui/material";
+import { AppBar, Badge, IconButton, List, ListItem, Toolbar, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { NavLink } from "react-router-dom";
 
@@ -41,7 +41,7 @@ export default function Header() {
                     <List className="middleLinks" sx={{ display: 'flex' }}>
                         {
                             middleLinks.map(({ title, path }) => (
-                                <ListItem  key={path}>
+                                <ListItem key={path}>
                                     <NavLink to={path} style={{
                                         fontSize: '1.20rem', fontFamily: '"Roboto","Helvetica","Arial","sans-serif"', textDecoration: 'none'
                                     }}>{title.toUpperCase()}</NavLink>
@@ -54,7 +54,7 @@ export default function Header() {
                 <Box display='flex' alignItems='center'>
                     <IconButton size="large">
                         <Badge badgeContent="5" sx={{ color: 'red' }}>
-                            <ShoppingCartCheckoutIcon sx={{color:'white'}}/>
+                            <ShoppingCartCheckoutIcon sx={{ color: 'white' }} />
                         </Badge>
                     </IconButton>
 

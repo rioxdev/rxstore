@@ -1,8 +1,31 @@
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
+import { toast } from "react-toastify";
+
 
 axios.defaults.baseURL = 'http://localhost:5000/api/';
 
 const responseBody = (response: AxiosResponse) => response.data;
+
+axios.interceptors.response.use((response: AxiosResponse) => {
+    return response;
+}, (error: AxiosError<any>) => {
+
+    const data = error.response?.data;
+
+    switch(error.response?.status){
+
+        case 400:
+        case 401:
+        case 500:
+            toast.error(data.title);
+            break;
+
+        default:
+            break;
+    }
+
+    return Promise.reject(error.response);
+})
 
 const requests = {
     get: (url: string) => axios.get(url).then(responseBody),
@@ -21,7 +44,7 @@ const TestErrors = {
     get401: () => requests.get('buggy/unauthorized'),
     get404: () => requests.get('buggy/not-found'),
     get500: () => requests.get('buggy/server-error'),
-    getValidationError: ()=> requests.get('buggy/validation-error')
+    getValidationError: () => requests.get('buggy/validation-error')
 }
 
 const agent = {

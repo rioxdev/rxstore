@@ -2,6 +2,7 @@ import { CssBaseline, Typography } from "@mui/material";
 import { Container } from "@mui/system";
 import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router";
+import { ToastContainer } from "react-toastify";
 import AboutPage from "../../features/about/AboutPage";
 import Catalog from "../../features/catalogs/catalog";
 import ProductDetails from "../../features/catalogs/ProductDetails";
@@ -10,6 +11,7 @@ import HomePage from "../../features/home/HomePage";
 import agent from "../api/agent";
 import { Product } from "../models/product";
 import Header from "./Header";
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function App() {
@@ -39,6 +41,7 @@ function App() {
 
   return (
     <>
+      <ToastContainer position="bottom-right" hideProgressBar theme="colored" />
       <CssBaseline />
       <Header />
 
