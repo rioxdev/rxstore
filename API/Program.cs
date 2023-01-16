@@ -48,7 +48,7 @@ namespace API
             }
 
             //app.UseCors(opt => opt.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
-            app.UseCors(opt => opt.AllowAnyHeader().AllowAnyOrigin());
+            app.UseCors(opt => opt.AllowAnyHeader().AllowCredentials().AllowAnyOrigin());
 
             //app.UseHttpsRedirection();
 

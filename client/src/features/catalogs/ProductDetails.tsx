@@ -2,11 +2,12 @@ import { Divider, Grid, Table, TableBody, TableCell, TableContainer, TableRow, T
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import agent from "../../app/api/agent";
+import LoadingComponent from "../../app/layout/LoadingComponent";
 import { Product } from "../../app/models/product";
 
 export default function ProductDetails() {
 
-    const { id } = useParams<{ id: string}>();
+    const { id } = useParams<{ id: string }>();
     const [product, setProduct] = useState<Product | null>(null);
     const [loading, setLoading] = useState(true);
 
@@ -18,7 +19,7 @@ export default function ProductDetails() {
     }, [id]);
 
     if (loading)
-        return <h3>Loading...</h3>
+        return (<LoadingComponent message="Loading product..." />)
 
     if (!product)
         return <h3>Product not found</h3>

@@ -18,6 +18,7 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Product>>> GetAll()
         {
+            await Task.Delay(500);
             return Ok(await _context.Products.ToListAsync());
         }
 
@@ -30,6 +31,7 @@ namespace API.Controllers
                 return NotFound();
             }
 
+            await Task.Delay(500);
             return Ok(product);
         }
 

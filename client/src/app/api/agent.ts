@@ -1,4 +1,6 @@
+import { throws } from "assert";
 import axios, { AxiosError, AxiosResponse } from "axios";
+
 import { toast } from "react-toastify";
 
 
@@ -12,11 +14,23 @@ axios.interceptors.response.use((response: AxiosResponse) => {
 
     const data = error.response?.data;
 
-    switch(error.response?.status){
+    switch (error.response?.status) {
 
         case 400:
+            if (data.errors) {
+                const validationErrors: string[] = [];
+                for (const key in data.errors)
+                    validationErrors.push(data.errors[key]);
+                
+                throw validationErrors.flat();
+            }
+            toast.error(data.title);
+            break;
         case 401:
+            toast.error(data.title);
+            break;
         case 500:
+          
             toast.error(data.title);
             break;
 

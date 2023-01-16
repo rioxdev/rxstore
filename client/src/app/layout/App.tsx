@@ -8,7 +8,7 @@ import Catalog from "../../features/catalogs/catalog";
 import ProductDetails from "../../features/catalogs/ProductDetails";
 import ContactPage from "../../features/contact/ContactPage";
 import HomePage from "../../features/home/HomePage";
-import agent from "../api/agent";
+
 import { Product } from "../models/product";
 import Header from "./Header";
 import 'react-toastify/dist/ReactToastify.css';
@@ -16,28 +16,18 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
 
-  //useState hook
-  const [products, setProducts] = useState<Product[]>(
-    []
-  );
-
-  useEffect(() => {
-    agent.Catalog.list()
-      .then(data => setProducts(data))
-  }, [])
-
-  function addProduct() {
-    setProducts(prevState => [...prevState,
-    {
-      id: products.length + 1,
-      name: 'product' + (products.length + 1),
-      price: 250,
-      description: 'Pellentesque cursus et purus in laoreet. Nunc bibendum posuere diam. ',
-      brand: 'some brand',
-      type: 'Hats',
-      pictureUrl: 'https://picsum.photos/150'
-    }]);
-  }
+  // function addProduct() {
+  //   setProducts(prevState => [...prevState,
+  //   {
+  //     id: products.length + 1,
+  //     name: 'product' + (products.length + 1),
+  //     price: 250,
+  //     description: 'Pellentesque cursus et purus in laoreet. Nunc bibendum posuere diam. ',
+  //     brand: 'some brand',
+  //     type: 'Hats',
+  //     pictureUrl: 'https://picsum.photos/150'
+  //   }]);
+  // }
 
   return (
     <>
@@ -49,7 +39,7 @@ function App() {
       <Container>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/catalog" element={<Catalog products={products} addProduct={addProduct} />} />
+          <Route path="/catalog" element={<Catalog />} />
           <Route path="/catalog/:id" element={<ProductDetails />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/about" element={<AboutPage />} />
