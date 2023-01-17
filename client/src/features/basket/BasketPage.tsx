@@ -3,6 +3,7 @@ import { Add, Remove } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
 import { Box, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import agent from "../../app/api/agent";
 import { useStoreContext } from "../../app/context/context";
 
@@ -57,7 +58,10 @@ export default function BasketPage() {
                                 <TableCell component="th" scope="row">
                                     <Box display='flex' alignItems='center'>
                                         <img src={row.pictureUrl} style={{ height: 50, marginRight: 20 }} alt={row.name} />
+                                        <Link to={`/catalog/${row.productId}`}>
                                         {row.name}
+                                        </Link>
+                                      
                                     </Box>
                                 </TableCell>
                                 <TableCell align="right">${(row.price / 100).toFixed(2)}</TableCell>
