@@ -5,6 +5,7 @@ import { NavLink } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
+import { useStoreContext } from "../context/context";
 
 
 const middleLinks = [
@@ -19,6 +20,9 @@ const userLinks = [
 ]
 
 export default function Header() {
+
+    const { basket } = useStoreContext();
+    const itemCount = basket?.items.reduce((sum, item) => sum + item.quantity, 0);
 
     return (
         <AppBar position="static" sx={{ mb: 4 }}>
@@ -53,7 +57,7 @@ export default function Header() {
 
                 <Box display='flex' alignItems='center'>
                     <IconButton size="large" component={Link} to='/basket'>
-                        <Badge badgeContent="5" sx={{ color: 'red' }}>
+                        <Badge badgeContent={itemCount} sx={{ color: 'red' }}>
                             <ShoppingCartCheckoutIcon sx={{ color: 'white' }} />
                         </Badge>
                     </IconButton>

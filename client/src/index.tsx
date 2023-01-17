@@ -4,6 +4,7 @@ import './index.css';
 import App from './app/layout/App';
 import '@fontsource/roboto/400.css';
 import { BrowserRouter } from 'react-router-dom';
+import { StoreProvider } from './app/context/context';
 
 
 const root = ReactDOM.createRoot(
@@ -14,7 +15,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <StoreProvider>
+        <App />
+      </StoreProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

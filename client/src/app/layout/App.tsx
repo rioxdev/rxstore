@@ -13,6 +13,10 @@ import { Product } from "../models/product";
 import Header from "./Header";
 import 'react-toastify/dist/ReactToastify.css';
 import BasketPage from "../../features/basket/BasketPage";
+import { useStoreContext } from "../context/context";
+import { getCookie } from "../util/util";
+import agent from "../api/agent";
+import LoadingComponent from "./LoadingComponent";
 
 
 function App() {
@@ -30,12 +34,31 @@ function App() {
   //   }]);
   // }
 
+  const { setBakset } = useStoreContext();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const buyerId = getCookie("buyerId");
+    if (buyerId) {
+      agent.Basket.get()
+        .then(basket => setBakset(basket))
+        .catch(err => console.log(err))
+        .finally(() => setLoading(false));
+    }
+    else {
+      setLoading(false);
+    }
+  }, [setBakset])
+
+
+  if (loading)
+    <LoadingComponent message="Loading basket..."></LoadingComponent>
+
   return (
     <>
       <ToastContainer position="bottom-right" hideProgressBar theme="colored" />
       <CssBaseline />
       <Header />
-
 
       <Container>
         <Routes>
