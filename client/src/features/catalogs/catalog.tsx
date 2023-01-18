@@ -4,6 +4,8 @@ import { Product } from "../../app/models/product"
 import ProductList from "./ProductList";
 import agent from "../../app/api/agent";
 import LoadingComponent from "../../app/layout/LoadingComponent";
+import { useAppDispatch, useAppSelector } from "../../app/store/configureStore";
+import { fetchProductsAsync, productSelectors } from "./catalogSlice";
 
 interface Prop {
     products: Product[],
@@ -12,37 +14,22 @@ interface Prop {
 
 
 export default function Catalog() {
-    //useState hook
-    const [products, setProducts] = useState<Product[]>(
-        []
-    );
 
-    const [loading, setLoading] = useState(true);
+    const products = useAppSelector(productSelectors.selectAll);
+    const { productsLoaded, status } = useAppSelector(state => state.catalog);
+    const dispatch = useAppDispatch();
 
-    //useEffect hook
     useEffect(() => {
-        agent.Catalog.list()
-            .then(data => setProducts(data))
-            .catch(err => console.log(err))
-            .finally(() => setLoading(false))
-    }, [])
+        if (!productsLoaded)
+            dispatch(fetchProductsAsync());
+    }, [productsLoaded])
 
 
-    if (loading)
-        return (<LoadingComponent message="Loading products..."/>)
+    if (status.includes('pending'))
+        return (<LoadingComponent message="Loading products..." />)
 
 
     return (
-        <>
-            <h1>
-                Catalog
-            </h1>
-
-            {/* <p>
-                <Button variant="contained" onClick={props.addProduct}>Add</Button>
-            </p> */}
-
             <ProductList products={products} />
-        </>
     )
 }

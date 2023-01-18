@@ -17,6 +17,8 @@ import { useStoreContext } from "../context/context";
 import { getCookie } from "../util/util";
 import agent from "../api/agent";
 import LoadingComponent from "./LoadingComponent";
+import { useAppDispatch } from "../store/configureStore";
+import { setBasket } from "../../features/basket/basketSlice";
 
 
 function App() {
@@ -34,21 +36,23 @@ function App() {
   //   }]);
   // }
 
-  const { setBakset } = useStoreContext();
+  // const { setBakset } = useStoreContext();
+
+  const dispatch = useAppDispatch();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const buyerId = getCookie("buyerId");
     if (buyerId) {
       agent.Basket.get()
-        .then(basket => setBakset(basket))
+        .then(basket => dispatch(setBasket(basket)))
         .catch(err => console.log(err))
         .finally(() => setLoading(false));
     }
     else {
       setLoading(false);
     }
-  }, [setBakset])
+  }, [setBasket])
 
 
   if (loading)

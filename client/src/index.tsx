@@ -5,8 +5,10 @@ import App from './app/layout/App';
 import '@fontsource/roboto/400.css';
 import { BrowserRouter } from 'react-router-dom';
 import { StoreProvider } from './app/context/context';
-import { configureStore } from './app/store/configureStore';
+// import { configureStore } from './app/store/configureStore';
 import { Provider } from 'react-redux';
+import { store } from './app/store/configureStore';
+import { fetchProductsAsync } from './features/catalogs/catalogSlice';
 
 
 const root = ReactDOM.createRoot(
@@ -14,16 +16,14 @@ const root = ReactDOM.createRoot(
 );
 
 
-const store = configureStore();
+// const store = configureStore();
 
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <StoreProvider>
-        <Provider store={store}>
+      <Provider store={store}>
         <App />
-        </Provider>
-      </StoreProvider>
+      </Provider>
     </BrowserRouter>
   </React.StrictMode>
 );

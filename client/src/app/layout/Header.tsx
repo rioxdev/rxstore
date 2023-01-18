@@ -6,11 +6,12 @@ import { Link } from "react-router-dom";
 
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import { useStoreContext } from "../context/context";
+import { useAppSelector } from "../store/configureStore";
 
 
 const middleLinks = [
     { title: 'Catalog', path: '/catalog' },
-    { title: 'Contact', path: '/contact' },
+    { title: 'Test Redux', path: '/contact' },
     { title: 'Error testing', path: '/about' }
 ];
 
@@ -21,7 +22,9 @@ const userLinks = [
 
 export default function Header() {
 
-    const { basket } = useStoreContext();
+    // const { basket } = useStoreContext();
+
+    const { basket } = useAppSelector(state => state.basket);
     const itemCount = basket?.items.reduce((sum, item) => sum + item.quantity, 0);
 
     return (
@@ -57,7 +60,7 @@ export default function Header() {
 
                 <Box display='flex' alignItems='center'>
                     <IconButton size="large" component={Link} to='/basket'>
-                        <Badge badgeContent={itemCount} sx={{ color: 'red' }}>
+                        <Badge badgeContent={itemCount} sx={{ color: 'pink' }}>
                             <ShoppingCartCheckoutIcon sx={{ color: 'white' }} />
                         </Badge>
                     </IconButton>

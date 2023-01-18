@@ -6,16 +6,26 @@ import agent from "../../app/api/agent";
 import { useStoreContext } from "../../app/context/context";
 import LoadingComponent from "../../app/layout/LoadingComponent";
 import { Product } from "../../app/models/product";
+import { useAppDispatch, useAppSelector } from "../../app/store/configureStore";
+import { addBasketItemAsync, removeBasketItemAsync, setBasket } from "../basket/basketSlice";
+import { fetchProductAsync, productSelectors } from "./catalogSlice";
 
 export default function ProductDetails() {
 
     const { id } = useParams<{ id: string }>();
-    const [product, setProduct] = useState<Product | null>(null);
-    const [loading, setLoading] = useState(true);
+    // const [product, setProduct] = useState<Product | null>(null);
+    // const [loading, setLoading] = useState(true);
+
+    const product = useAppSelector(state => productSelectors.selectById(state, id!));
+    const {status: productStatus} = useAppSelector(state => state.catalog);
 
     const [quantity, setQuantity] = useState(0);
-    const [submitting, setSubmitting] = useState(false);
-    const { basket, setBakset, removeItem } = useStoreContext();
+    // const [submitting, setSubmitting] = useState(false);
+    // const { basket, setBakset, removeItem } = useStoreContext();
+
+    const { basket, status } = useAppSelector(state => state.basket);
+    const dispatcher = useAppDispatch();
+
     const item = basket?.items.find(i => i.productId == product?.id);
 
 
@@ -23,11 +33,10 @@ export default function ProductDetails() {
         if (item)
             setQuantity(item.quantity);
 
-        agent.Catalog.details(parseInt(id + ''))
-            .then(prod => setProduct(prod))
-            .catch(error => console.log(error))
-            .finally(() => setLoading(false));
-    }, [id, item]);
+        if (!product)
+            dispatcher(fetchProductAsync(parseInt(id!)));    
+
+    }, [id, item, , dispatcher, product]);
 
     function handleInputChange(event: any) {
         if (event.target.value >= 0) {
@@ -37,25 +46,19 @@ export default function ProductDetails() {
     }
 
     function handleUpdateCart() {
-        setSubmitting(true);
 
         if (!item || quantity > item.quantity) {
             const updatedQuantity = item ? quantity - item.quantity : quantity;
-            agent.Basket.addItem(product?.id!, updatedQuantity)
-                .then(bs => setBakset(bs))
-                .catch(err => console.log(err))
-                .finally(() => setSubmitting(false))
+            dispatcher(addBasketItemAsync({ productId: product?.id!, quantity: updatedQuantity }));
+
         }
         else {
             const updatedQuantity = item.quantity - quantity;
-            agent.Basket.removeItem(product?.id!, updatedQuantity)
-                .then(() => removeItem(product?.id!, updatedQuantity))
-                .catch(err => console.log(err))
-                .finally(() => setSubmitting(false))
+            dispatcher(removeBasketItemAsync({ productId: product?.id!, quantity: updatedQuantity }));
         }
     }
 
-    if (loading)
+    if (productStatus.includes('pending'))
         return (<LoadingComponent message="Loading product..." />)
 
     if (!product)
@@ -110,7 +113,7 @@ export default function ProductDetails() {
                             fullWidth
                             value={quantity}
                             onChange={handleInputChange}
-                        
+
                         />
                     </Grid>
                     <Grid item xs={6}>
@@ -119,7 +122,7 @@ export default function ProductDetails() {
                             size='large'
                             variant='contained'
                             fullWidth
-                            loading={submitting}
+                            loading={status.includes('pendingRemoveItem' + item?.productId)}
                             onClick={handleUpdateCart}
                             disabled={quantity == 0}
                         >

@@ -1,11 +1,19 @@
 import { Button, ButtonGroup, Typography } from "@mui/material";
-import { useSelector } from "react-redux/es/exports";
-import { useDispatch } from "react-redux/es/hooks/useDispatch";
-import { CounterState, DECREMENT_COUNTER, INCREMENT_COUNTER } from "./counterReducer";
+// import { useSelector } from "react-redux/es/exports";
+// import { useDispatch } from "react-redux/es/hooks/useDispatch";
+import { useAppDispatch, useAppSelector } from "../../app/store/configureStore";
+import { decrement, increment } from "./counterSlice";
+// import { CounterState, increment, decrement } from "./counterReducer";
 
 export default function ContactPage() {
-    const dispatch = useDispatch();
-    const stateObject: CounterState = useSelector((state: CounterState) => state);
+
+    // sans redux toolkit
+    // const dispatch = useDispatch();
+    // const stateObject: CounterState = useSelector((state: CounterState) => state);
+
+    // avec redux toolkit
+    const dispatch = useAppDispatch();
+    const { data, title } = useAppSelector(state => state.counter);
 
     return (
         <>
@@ -22,20 +30,24 @@ export default function ContactPage() {
                 Test Redux
             </Typography>
             <p>
-                Data : {stateObject.data}
+                Data : {data}
             </p>
             <p>
-                Title : {stateObject.title}
+                Title : {title}
             </p>
             <div>
                 <ButtonGroup>
                     <Button variant="contained" color="error"
-                        onClick={() => dispatch({ type: DECREMENT_COUNTER })}>
+                        onClick={() => dispatch(decrement(1))}>
                         Decrement
                     </Button>
                     <Button variant="contained" color="primary"
-                        onClick={() => dispatch({ type: INCREMENT_COUNTER })}>
+                        onClick={() => dispatch(increment(1))}>
                         Increment
+                    </Button>
+                    <Button variant="contained" color="secondary"
+                        onClick={() => dispatch(increment(10))}>
+                        Incrementer par 10
                     </Button>
                 </ButtonGroup>
             </div>
