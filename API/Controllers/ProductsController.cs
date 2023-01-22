@@ -1,8 +1,12 @@
 ﻿using API.Data;
 using API.Entities;
+using API.Extensions;
+using API.RequestHelpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
+using System.Text.Json;
 
 namespace API.Controllers
 {
@@ -16,10 +20,21 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Product>>> GetAll()
+        public async Task<ActionResult<PagedList<Product>>> GetAll(ProductParams productParams)
         {
-            await Task.Delay(500);
-            return Ok(await _context.Products.ToListAsync());
+            await Task.Delay(1000);
+
+            var query = _context.Products
+            .Sort(productParams.OrderBy)
+           .Search(productParams.SearchTerm)
+           .Filter(productParams.Brands, productParams.Types)
+           .AsQueryable();
+
+            var products = await PagedList<Product>.ToPagedList(query, productParams.PageNumber, productParams.PageSize);
+
+            Response.Headers.Add("Pagination", JsonSerializer.Serialize(products.MetaData));
+
+            return Ok(products);
         }
 
         [HttpGet("{id}")]
