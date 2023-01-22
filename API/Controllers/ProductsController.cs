@@ -20,7 +20,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<PagedList<Product>>> GetAll(ProductParams productParams)
+        public async Task<ActionResult<PagedList<Product>>> GetAll([FromQuery] ProductParams productParams)
         {
             await Task.Delay(1000);
 
@@ -48,6 +48,15 @@ namespace API.Controllers
 
             await Task.Delay(500);
             return Ok(product);
+        }
+
+        [HttpGet("filters")]
+        public async Task<ActionResult> GetFilters()
+        {
+            var brands = await _context.Products.Select(p => p.Brand).Distinct().OrderBy(b => b).ToListAsync();
+            var types = await _context.Products.Select(p => p.Type).Distinct().OrderBy(t => t).ToListAsync();
+
+            return Ok(new { types, brands });
         }
 
     }
